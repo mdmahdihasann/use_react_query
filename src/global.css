@@ -1,0 +1,21 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+  --primary-color: #2563eb;   
+  --secondary-color: #f43f5e;
+  --font-main: "Poppins", sans-serif;
+}
+
+body{
+    font-family: var(--font-main);
+    background-color: blanchedalmond;
+    color: #1a1a1a;
+}
+@layer components {
+  .card {
+    @apply p-4 bg-white rounded-lg shadow-md border;
+  }
+}
