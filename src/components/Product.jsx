@@ -2,7 +2,7 @@ import axios from "axios";
 import ProductCard from "./ProductCard";
 import { useQuery } from "@tanstack/react-query";
 
-const fetchProducts = async ({queryKey}) => {
+const fetchProducts = async ({ queryKey }) => {
   const response = await axios.get(`http://localhost:8000/${queryKey}`);
   return response.data;
 };
@@ -16,6 +16,7 @@ const Product = () => {
     queryKey: ["products"],
     queryFn: fetchProducts,
   });
+  
   if (isLoading) return "feaching data....";
   if (error) return `this is error find ${error.message}`;
   return (
@@ -25,7 +26,10 @@ const Product = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4 w-full max-w-[1200px] mx-auto">
         {products &&
           products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard
+              key={product.id}
+              product={product}
+            />
           ))}
       </div>
     </div>

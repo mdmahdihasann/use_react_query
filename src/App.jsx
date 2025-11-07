@@ -3,6 +3,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import './index.css'
 import './global.css'
 import Product from './components/Product';
+import ProductDetails from './components/ProductDetails';
 
 function App() {
   const queryClient = new QueryClient();
@@ -10,7 +11,10 @@ function App() {
   return (
     <>
     <QueryClientProvider client={queryClient}>
-        <Product/>
+        <div className='flex'>
+          <Product/>
+        <ProductDetails/>
+        </div>
         <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
     </>
