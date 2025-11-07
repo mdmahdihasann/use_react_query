@@ -1,25 +1,34 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-const fetchProductDetails = async ({ queryKey, productId }) => {
+const fetchProductDetails = async ({ queryKey }) => {
+  const [product, id] = queryKey;
+  
   const response = await axios.get(
-    `http://localhost:8000/${queryKey}/${productId}`
+    `http://localhost:8000/${product}/${id}`
   );
   return response.data;
 };
 
-const ProductDetails = async ({ productId }) => {
+const ProductDetails = ({ id }) => {
     const {
       data: product,
       isLoading,
       error,
     } = useQuery({
-      queryKey: ["productDetials", productId],
+      queryKey: ["products", id],
       queryFn: fetchProductDetails,
     });
-  console.log(product);
+  if(isLoading) return "Fetching data...";
+  if(error) return `this data has error ${error.message}`
+console.log(product);
 
-  return <div>ProductDetails</div>;
+  return <div className="p-4 rounded bg-white">
+    <img src={product?.thumbnail} />
+    <h2 className="text-[20px] font-bold mb-1 mt-2">{product?.title}</h2>
+    <p className="mb-2">{product?.description}</p>
+    <p className="font-bold">Price: ${product?.price}</p>
+  </div>;
 };
 
 export default ProductDetails;

@@ -10,7 +10,7 @@ const ProductCard = ({ product, onDetails }) => {
       />
       <h2 className="text-[16px] font-bold p-3">{product?.title}</h2>
       <div className="text-right">
-        <a className="text-red-500 text-sm hover:text-black transition-colors duration-300 font-bold" onClick={()=>onDetails(product.id)}>Read More..</a>
+        <a className="text-red-500 text-sm hover:text-black transition-colors duration-300 font-bold" onClick={()=>onDetails(product.id)}>Read More..</a> 
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ const fetchProducts = async ({ queryKey }) => {
   return response.data;
 };
 
-const Product = () => {
+const Product = ({onDetails}) => {
   const {
     data: products,
     isLoading,
@@ -29,6 +29,7 @@ const Product = () => {
             <ProductCard
               key={product.id}
               product={product}
+              onDetails={onDetails}
             />
           ))}
       </div>

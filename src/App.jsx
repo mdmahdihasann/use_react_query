@@ -4,16 +4,23 @@ import './index.css'
 import './global.css'
 import Product from './components/Product';
 import ProductDetails from './components/ProductDetails';
+import { useState } from 'react';
 
 function App() {
+  const [id, setId] =useState(null)
   const queryClient = new QueryClient();
+
+  function handleDetails(id){
+    setId(id)
+    
+  }
 
   return (
     <>
     <QueryClientProvider client={queryClient}>
         <div className='flex'>
-          <Product/>
-        <ProductDetails/>
+          <Product onDetails={handleDetails}/>
+        <ProductDetails id={id}/>
         </div>
         <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
