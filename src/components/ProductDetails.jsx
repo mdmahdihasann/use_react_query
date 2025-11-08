@@ -2,10 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const fetchProductDetails = async ({ queryKey }) => {
-  const [product, id] = queryKey;
   
   const response = await axios.get(
-    `http://localhost:8000/${product}/${id}`
+    `http://localhost:8000/${queryKey[0]}/${queryKey[1]}`
   );
   return response.data;
 };
@@ -21,7 +20,6 @@ const ProductDetails = ({ id }) => {
     });
   if(isLoading) return "Fetching data...";
   if(error) return `this data has error ${error.message}`
-console.log(product);
 
   return <div className="p-4 rounded bg-white">
     <img src={product?.thumbnail} />

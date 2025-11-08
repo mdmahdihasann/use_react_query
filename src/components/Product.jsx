@@ -1,13 +1,21 @@
 import axios from "axios";
 import ProductCard from "./ProductCard";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const fetchProducts = async ({ queryKey }) => {
   const response = await axios.get(`http://localhost:8000/${queryKey}`);
   return response.data;
 };
 
-const Product = ({onDetails}) => {
+const deleleProduct = async (id) => {
+  const res = await axios.delete(
+    `http://localhost:8000/products/${id}`
+  );
+  return res.data;
+};
+
+const Product = ({ onDetails }) => {
+  const queryClient = useQueryClient();
   const {
     data: products,
     isLoading,
@@ -16,7 +24,16 @@ const Product = ({onDetails}) => {
     queryKey: ["products"],
     queryFn: fetchProducts,
   });
+
+  const {mutate: onDelete} = useMutation({
+    mutationFn: deleleProduct,
+    onSuccess: ()=>{
+      queryClient.invalidateQueries(["products"])
+      alert("Product deleted successfully!");
+    }
+  })
   
+
   if (isLoading) return "feaching data....";
   if (error) return `this is error find ${error.message}`;
   return (
@@ -30,6 +47,7 @@ const Product = ({onDetails}) => {
               key={product.id}
               product={product}
               onDetails={onDetails}
+              onDelete={onDelete}
             />
           ))}
       </div>
